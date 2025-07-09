@@ -1,4 +1,4 @@
-//obs: fui muito redundante em por duas pesquisas separadas no click e no input. da pra melhorar
+//obs: fui muito redundante em por duas pesquisas separadas no click e no input. da pra melhorar  aa
 
 import {alunos} from './listaAlunos.js';
 
