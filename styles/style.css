@@ -1,0 +1,15 @@
+.card-img-aluno {
+            width: 150px;
+            height: 150px;
+            object-fit: cover;
+            border-radius: 50%;
+        }
+        .card-body {
+            flex-grow: 1;
+        }
+        #resultados-container{
+            min-height: 200px;
+        }
+        #capa{
+            margin-top: -35px;
+        }
