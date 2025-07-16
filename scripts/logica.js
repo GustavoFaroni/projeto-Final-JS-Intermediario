@@ -1,16 +1,11 @@
-//obs: fui muito redundante em por duas pesquisas separadas no click e no input. da pra melhorar  aa
-
 import {alunos} from './listaAlunos.js';
-
-//funçao da data bonitinha
-function formatarData(dataString) {
-    const data = new Date(dataString);
-    //Internacionalização = intl ou seja ele escolhe a formatação da data no "pt-br"
-    //obs: isso é um recurso nativo do javascript usado para formataçao nesse caso em especifico data
-    return new Intl.DateTimeFormat('pt-BR').format(data);
-}
+import {formatarData} from './formatarData.js';
+import { calcularDescontoVT } from './calculovt.js';
+import { formatarMoeda } from './formatarMoeda.js';
 
 const selectElement = document.getElementById("alunos-select");
+const inputBusca = document.getElementById('busca-input');
+const containerResultados = document.getElementById('resultados-container');
 
 
 alunos.forEach((aluno) => {
@@ -21,46 +16,8 @@ alunos.forEach((aluno) => {
   selectElement.appendChild(option);
 });
 
-selectElement.addEventListener("click", () => {
-  inputBusca.value = selectElement.value;
 
-  //aqui onde chama a busca
-  const termoBusca = inputBusca.value.trim().toLowerCase();
-  const resultadosFiltrados = alunos.filter(aluno => {
-        //sem o include aqui a busca n rola (ele verifica se essa string contem a outra string)
-        return aluno.nome.toLowerCase().includes(termoBusca);
-    });
-  exibirResultados(resultadosFiltrados);
-});
-
-
-
-
-const inputBusca = document.getElementById('busca-input');
-const containerResultados = document.getElementById('resultados-container');
-
-//esse que é o "truque" da pesquisa dinamica botar o evento no 
-// input pra que ele faça uma busca ja na letra
-inputBusca.addEventListener('input', () => {
-    const termoBusca = inputBusca.value.trim().toLowerCase();
-    
-    //limpar a busca caso tenha retirado todas as letras
-    if (termoBusca === '') {
-        containerResultados.innerHTML = '';
-        return;
-    }
-
-    //mantém apenas os alunos com o nome na  que retornem "true" para o include
-    const resultadosFiltrados = alunos.filter(aluno => {
-        return aluno.nome.toLowerCase().includes(termoBusca);
-    });
-
-    // exibir os resultados na tela
-    exibirResultados(resultadosFiltrados);
-});
-
-
-function exibirResultados(resultados) {
+export function exibirResultados(resultados) {
     // limpa tudo
     containerResultados.innerHTML = '';
 
@@ -70,32 +27,54 @@ function exibirResultados(resultados) {
     }
 
    
-    resultados.forEach(aluno => {
+    resultados.forEach(alunos => {
         //bota a data bonitinha
-        const dataNascFormatada = formatarData(aluno.dtNascimento);
+        const dataNascFormatada = formatarData(alunos.dtNascimento);
+       
+        // Pega os detalhes do cálculo de VT
+        const calculoVT = calcularDescontoVT(alunos);
         
+        // Calcula o salário
+        const salarioLiquido = alunos.salario - calculoVT.desconto;
 
-        const cardAlunoHTML = `
+        // Formata todos os valores como moeda
+        const salarioBrutoFmt = formatarMoeda(alunos.salario);
+        const descontoVTFmt = formatarMoeda(calculoVT.desconto);
+        const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
+
+        //badge de status do VT (pedir um esclarecimento dps)
+        const badgeVT = calculoVT.optou
+            ? '<span class="badge bg-success ms-2">Optante VT</span>'
+            : '<span class="badge bg-secondary ms-2">Não Optante</span>';
+
+               const cardAlunoHTML = `
             <div class="card mb-3 shadow-sm">
-                <div class="card-body d-flex align-items-center">
-                    
-                    <div class="me-4">
-                        <img src="${aluno.foto}" alt="Foto de ${aluno.nome}" class="card-img-aluno">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="${alunos.foto}" alt="Foto de ${alunos.nome}" class="card-img-aluno me-3">
+                        <div>
+                            <h5 class="card-title mb-0">
+                                ${alunos.nome}${badgeVT}
+                            </h5>
+                            <p class="card-text"><small class="text-muted">${alunos.grauEscolaridade}</small></p>
+                        </div>
                     </div>
 
-                    <div>
-                        <h5 class="card-title mb-1">${aluno.nome}</h5>
-                        <p class="card-text mb-1">
-                            <strong>Série:</strong> ${aluno.grauEscolaridade}
-                        </p>
-                        <p class="card-text mb-1">
-                            <strong>Nascimento:</strong> ${dataNascFormatada}
-                        </p>
-                        <p class="card-text mb-1">
-                            <strong>Endereço:</strong> ${aluno.endereco}
-                        </p>
-                    </div>
-
+                    <h6 class="card-subtitle mb-2 text-muted">Detalhes Financeiros:</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Salário Bruto
+                            <span>${salarioBrutoFmt}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Desconto VT
+                            <span class="text-danger">-${descontoVTFmt}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Salário Líquido (aprox.)</strong>
+                            <strong>${salarioLiquidoFmt}</strong>
+                        </li>
+                    </ul>
                 </div>
             </div>
         `;
