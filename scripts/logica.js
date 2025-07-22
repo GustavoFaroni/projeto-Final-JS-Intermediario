@@ -2,6 +2,7 @@ import {alunos} from './listaAlunos.js';
 import {formatarData} from './formatarData.js';
 import { calcularDescontoVT } from './calculovt.js';
 import { formatarMoeda } from './formatarMoeda.js';
+import { calculoFGTS } from './fgts.js';
 
 const selectElement = document.getElementById("alunos-select");
 const inputBusca = document.getElementById('busca-input');
@@ -41,8 +42,10 @@ export function exibirResultados(resultados) {
         const salarioBrutoFmt = formatarMoeda(alunos.salario);
         const descontoVTFmt = formatarMoeda(calculoVT.desconto);
         const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
+        const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
+        const fgts = formatarMoeda(calculoFGTS(alunos));
 
-        //badge de status do VT (pedir um esclarecimento dps)
+
         const badgeVT = calculoVT.optou
             ? '<span class="badge bg-success ms-2">Optante VT</span>'
             : '<span class="badge bg-secondary ms-2">Não Optante</span>';
@@ -73,6 +76,14 @@ export function exibirResultados(resultados) {
                         <li class="list-group-item d-flex justify-content-between align-items-center">
                             <strong>Salário Líquido (aprox.)</strong>
                             <strong>${salarioLiquidoFmt}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            valor VT a pagar pela empresa
+                            <span class="text-danger">-${vtEmpresa}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            FGTS
+                            <span class="text-danger">${fgts}</span>
                         </li>
                     </ul>
                 </div>
