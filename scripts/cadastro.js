@@ -4,7 +4,7 @@ const form = document.getElementById('form-cadastro');
 const resultadoDiv = document.getElementById('resultado-cadastro');
 
 form.addEventListener('submit', (event) => {
-    // event.preventDefault() é ESSENCIAL. Ele impede que a página recarregue ao enviar o formulário.
+    // event.preventDefault() ele impede que a página recarregue ao enviar o formulário.
     event.preventDefault();
 
     const nome = document.getElementById('nome').value;
@@ -25,6 +25,7 @@ form.addEventListener('submit', (event) => {
         endereco: endereco,
         salario: parseFloat(salario),
         passagemDiaria: parseFloat(passagem),
+        //ao inves de comparar o retorno , faço uma comparaçao onde o true retorna true e a comparaçao com false retorna false
         optouPeloVT: opcaoVT === 'true' 
     };
 
