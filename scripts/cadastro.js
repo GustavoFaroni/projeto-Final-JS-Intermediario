@@ -25,7 +25,7 @@ form.addEventListener('submit', (event) => {
         nomeCompleto: `${nome} ${sobrenome}`,
         dataNascimento: dtNascimento,
         sexo: sexo,
-        escolaridade: escolaridade,
+        grauEscolaridade: escolaridade,
         endereco: endereco,
         foto: foto,
         salario: parseFloat(salario),
