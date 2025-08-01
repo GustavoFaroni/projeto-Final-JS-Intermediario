@@ -22,8 +22,8 @@ form.addEventListener('submit', (event) => {
     // no futuro acho q vai ser a solução sem usar required 
 
     const novoFuncionario = {
-        nomeCompleto: `${nome} ${sobrenome}`,
-        dataNascimento: dtNascimento,
+        nome: `${nome} ${sobrenome}`,
+        dtNascimento: dtNascimento,
         sexo: sexo,
         grauEscolaridade: escolaridade,
         endereco: endereco,
@@ -31,7 +31,7 @@ form.addEventListener('submit', (event) => {
         salario: parseFloat(salario),
         passagemDiaria: parseFloat(passagem),
         //ao inves de comparar o retorno , faço uma comparaçao onde o true retorna true e a comparaçao com false retorna false
-        optouPeloVT: opcaoVT === 'true' 
+        opcaoVT: opcaoVT === 'true' 
     };
 
     alunos.push(novoFuncionario);
