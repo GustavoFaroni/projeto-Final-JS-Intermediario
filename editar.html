@@ -1,9 +1,6 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
-<<<<<<< HEAD
-=======
 
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -11,21 +8,14 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="stylesheet" href="styles/style.css">
 </head>
-<<<<<<< HEAD
-=======
 
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
 <body class="bg-light">
 
     <nav class="navbar navbar-expand-lg navbar-dark bg-dark">
         <div class="container-fluid">
             <a class="navbar-brand" href="index.html">Sistema Escolar</a>
-<<<<<<< HEAD
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-=======
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav"
                 aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
                 <span class="navbar-toggler-icon"></span>
             </button>
             <div class="collapse navbar-collapse" id="navbarNav">
@@ -46,16 +36,20 @@
 
     <div class="container my-5">
         <div class="row justify-content-center">
-<<<<<<< HEAD
             <div class="col-lg-8">
-=======
-            <div class="col-lg-12">
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
                 <div class="card shadow-sm">
                     <div class="card-body p-4">
 
                         <h1 class="card-title text-center mb-4">Editar Funcionário</h1>
-<<<<<<< HEAD
+
+                        <div class="mb-4">
+                            <select class="form-select form-select-lg" id="alunos-select">
+                                <option value="" selected>Escolha um funcionário</option>
+                            </select>
+                        </div>
+
+                        <hr class="mb-4">
+
 
                         <form id="form-edicao">
                             <div class="mb-3">
@@ -101,36 +95,41 @@
                                 <label for="endereco" class="form-label">Endereço:</label>
                                 <input type="text" class="form-control" id="endereco" required>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="foto" class="form-label">URL da Foto:</label>
-                                <input type="url" class="form-control" id="foto" placeholder="https://exemplo.com/imagem.jpg">
+                                <input type="url" class="form-control" id="foto"
+                                    placeholder="https://exemplo.com/imagem.jpg">
                             </div>
 
                             <div class="mb-3">
                                 <label for="salario" class="form-label">Salário:</label>
                                 <div class="input-group">
                                     <span class="input-group-text">R$</span>
-                                    <input type="number" class="form-control" id="salario" placeholder="0,00" step="0.01" required>
+                                    <input type="number" class="form-control" id="salario" placeholder="0,00"
+                                        step="0.01" required>
                                 </div>
                             </div>
-                            
+
                             <div class="mb-3">
                                 <label for="passagem" class="form-label">Valor de Passagem Diário (ida e volta):</label>
                                 <div class="input-group">
                                     <span class="input-group-text">R$</span>
-                                    <input type="number" class="form-control" id="passagem" placeholder="0,00" step="0.01" required>
+                                    <input type="number" class="form-control" id="passagem" placeholder="0,00"
+                                        step="0.01" required>
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label d-block">Opta pelo Vale-Transporte (VT)?</label>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="opcaoVT" id="vt-sim" value="true" required>
+                                    <input class="form-check-input" type="radio" name="opcaoVT" id="vt-sim" value="true"
+                                        required>
                                     <label class="form-check-label" for="vt-sim">Sim</label>
                                 </div>
                                 <div class="form-check form-check-inline">
-                                    <input class="form-check-input" type="radio" name="opcaoVT" id="vt-nao" value="false" required>
+                                    <input class="form-check-input" type="radio" name="opcaoVT" id="vt-nao"
+                                        value="false" required>
                                     <label class="form-check-label" for="vt-nao">Não</label>
                                 </div>
                             </div>
@@ -139,110 +138,6 @@
                                 <button type="submit" class="btn btn-success btn-lg">Salvar Alterações</button>
                             </div>
                         </form>
-=======
-                        <div id="divisor" style="display: inline-block; width: 100%;">
-                            <div style="width: 49%; display: inline-block;">
-                                <div class="">
-                                    <label for="alunos-select" class="form-label">Lista de Alunos:</label>
-                                    <select class="form-select" id="alunos-select" size="8">
-                                    </select>
-                                </div>
-
-                                <div id="resultados-container">
-                                </div>
-
-                            </div>
-                            <div style="width: 49%; display: inline-block;">
-                                <form id="form-edicao" style="display: inline;" >
-                                    <div class="mb-3">
-                                        <label for="nome" class="form-label">Nome:</label>
-                                        <input type="text" class="form-control" id="nome" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="sobrenome" class="form-label">Sobrenome:</label>
-                                        <input type="text" class="form-control" id="sobrenome" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="dtNascimento" class="form-label">Data de Nascimento:</label>
-                                        <input type="date" class="form-control" id="dtNascimento" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="sexo" class="form-label">Sexo:</label>
-                                        <select class="form-select" id="sexo" required>
-                                            <option selected disabled value="">Selecione...</option>
-                                            <option>Masculino</option>
-                                            <option>Feminino</option>
-                                            <option>Outro</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="escolaridade" class="form-label">Escolaridade:</label>
-                                        <select class="form-select" id="escolaridade" required>
-                                            <option selected disabled value="">Selecione...</option>
-                                            <option>Ensino Fundamental Incompleto</option>
-                                            <option>Ensino Fundamental Completo</option>
-                                            <option>Ensino Médio Incompleto</option>
-                                            <option>Ensino Médio Completo</option>
-                                            <option>Ensino Superior Incompleto</option>
-                                            <option>Ensino Superior Completo</option>
-                                            <option>Pós-graduação</option>
-                                        </select>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="endereco" class="form-label">Endereço:</label>
-                                        <input type="text" class="form-control" id="endereco" required>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="foto" class="form-label">URL da Foto:</label>
-                                        <input type="url" class="form-control" id="foto"
-                                            placeholder="https://exemplo.com/imagem.jpg">
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="salario" class="form-label">Salário:</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="number" class="form-control" id="salario" placeholder="0,00"
-                                                step="0.01" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label for="passagem" class="form-label">Valor de Passagem Diário (ida e
-                                            volta):</label>
-                                        <div class="input-group">
-                                            <span class="input-group-text">R$</span>
-                                            <input type="number" class="form-control" id="passagem" placeholder="0,00"
-                                                step="0.01" required>
-                                        </div>
-                                    </div>
-
-                                    <div class="mb-3">
-                                        <label class="form-label d-block">Opta pelo Vale-Transporte (VT)?</label>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="opcaoVT" id="vt-sim"
-                                                value="true" required>
-                                            <label class="form-check-label" for="vt-sim">Sim</label>
-                                        </div>
-                                        <div class="form-check form-check-inline">
-                                            <input class="form-check-input" type="radio" name="opcaoVT" id="vt-nao"
-                                                value="false" required>
-                                            <label class="form-check-label" for="vt-nao">Não</label>
-                                        </div>
-                                    </div>
-                            </div>
-                            <div class="d-grid">
-                                <button type="submit" class="btn btn-success btn-lg">Salvar Alterações</button>
-                            </div>
-                            </form>
-                        </div>
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
                     </div>
                 </div>
             </div>
@@ -251,9 +146,8 @@
 
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
     <script type="module" src="scripts/editar.js"></script>
+    <script type="module" src="scripts/logica.js"></script>
+    
 </body>
-<<<<<<< HEAD
-=======
 
->>>>>>> add75072398871dda5d0e33a5b754e8bd0fd18a4
 </html>
