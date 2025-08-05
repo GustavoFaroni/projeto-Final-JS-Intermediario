@@ -2,6 +2,7 @@
 
 export const alunos = [
     {
+        id: 1,
         nome: "Ana Clara Oliveira",
         sexo: "Feminino",
         dtNascimento: "2010-05-15",
@@ -10,9 +11,11 @@ export const alunos = [
         foto: "img/ana clara.png",
         salario: 3500.00,
         passagemDiaria: 8.60,
-        opcaoVT: true
+        opcaoVT: true,
+        historico: [],
     },
     {
+        id: 2,
         nome: "Lucas Martins Souza",
         sexo: "Masculino",
         dtNascimento: "2012-09-22",
@@ -21,9 +24,11 @@ export const alunos = [
         foto: "img/lucas martins.png",
         salario: 3500.00,
         passagemDiaria: 17.10,
-        opcaoVT: true
+        opcaoVT: true,
+        historico: [],
     },
     {
+        id: 3,
         nome: "Beatriz Costa Lima",
         sexo: "Feminino",
         dtNascimento: "2008-02-10",
@@ -32,9 +37,11 @@ export const alunos = [
         foto: "img/beatriz costa.png",
         salario: 3300.00,
         passagemDiaria: 17.10,
-        opcaoVT: false
+        opcaoVT: false,
+        historico: [],
     },
     {
+        id: 4,
         nome: "Pedro Almeida Santos",
         sexo: "Masculino",
         dtNascimento: "2009-11-30",
@@ -43,9 +50,11 @@ export const alunos = [
         foto: "img/pedro almeida.png",
         salario: 3500.00,
         passagemDiaria: 8.60,
-        opcaoVT: false
+        opcaoVT: false,
+        historico: [],
     },
     {
+        id: 5,
         nome: "Júlia Ferreira Gomes",
         sexo: "Feminino",
         dtNascimento: "2014-07-18",
@@ -54,9 +63,11 @@ export const alunos = [
         foto: "img/julia ferreira.png",
         salario: 4100.00,
         passagemDiaria: 8.60,
-        opcaoVT: true
+        opcaoVT: true,
+        historico: [],
     },
     {
+        id: 6,
         nome: "Guilherme Pereira Rodrigues",
         sexo: "Masculino",
         dtNascimento: "2007-08-01",
@@ -65,9 +76,11 @@ export const alunos = [
         foto: "img/guilherme pereira.png",
         salario: 1700.00,
         passagemDiaria: 17.60,
-        opcaoVT: true
+        opcaoVT: true,
+        historico: [],
     },
     {
+        id: 7,
         nome: "Sofia Ribeiro Carvalho",
         sexo: "Feminino",
         dtNascimento: "2011-03-25",
@@ -76,9 +89,11 @@ export const alunos = [
         foto: "img/sofia ribeiro.png",
         salario: 3500.00,
         passagemDiaria: 17.20,
-        opcaoVT: false
+        opcaoVT: false,
+        historico: [],
     },
     {
+        id: 8,
         nome: "Matheus Gonçalves Dias",
         sexo: "Masculino",
         dtNascimento: "2013-12-05",
@@ -87,9 +102,11 @@ export const alunos = [
         foto: "img/matheus goncalves.png",
         salario: 1500.00,
         passagemDiaria: 8.60,
-        opcaoVT: false
+        opcaoVT: false,
+        historico: [],
     },
     {
+        id: 9,
         nome: "Isabela Mendes Barbosa",
         sexo: "Feminino",
         dtNascimento: "2008-06-12",
@@ -98,9 +115,11 @@ export const alunos = [
         foto: "img/isabela mendes.png",
         salario: 4300.00,
         passagemDiaria: 8.60,
-        opcaoVT: false
+        opcaoVT: false,
+        historico: [],
     },
     {
+        id: 10,
         nome: "Rafael Castro e Silva",
         sexo: "Masculino",
         dtNascimento: "2009-01-07",
@@ -109,6 +128,7 @@ export const alunos = [
         foto: "img/rafael-castro.png",
         salario: 1860.00,
         passagemDiaria: 17.20,
-        opcaoVT: true
+        opcaoVT: true,
+        historico: [],
     }
 ];

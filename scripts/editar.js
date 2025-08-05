@@ -2,7 +2,8 @@ import {alunos} from './listaAlunos.js';
 
 const selectFuncionario = document.getElementById('alunos-select');
 const formEdicao = document.getElementById('form-edicao');
-// Pega todos os inputs do formulário para facilitar o preenchimento
+
+
 const nomeInput = document.getElementById('nome');
 const sobrenomeInput = document.getElementById('sobrenome');
 const dtNascimentoInput = document.getElementById('dtNascimento');
