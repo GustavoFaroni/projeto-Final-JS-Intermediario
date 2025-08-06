@@ -1,7 +1,7 @@
 import {alunos} from './listaAlunos.js'
+import { formatarData } from './formatarData.js';
 
-// ver o html certo
-const container = document.getElementById('listaFuncionarios');
+const container = document.getElementById('lista-funcionarios');
 
 alunos.forEach((funcionario, index) => {
     const card = document.createElement('div');
@@ -11,7 +11,7 @@ alunos.forEach((funcionario, index) => {
         <img src="${funcionario.foto}" class="card-img-top" alt="${funcionario.nome}">
         <div class="card-body link-card">
             <h5 class="card-title">${funcionario.nome}</h5>
-            <p class="card-text"><strong>Data de nascimento:</strong> ${new Date(funcionario.dtNascimento)}</p>
+            <p class="card-text"><strong>Data de nascimento:</strong> ${formatarData(funcionario.dtNascimento)}</p>
             <p class="card-text"><strong>Sexo:</strong> ${funcionario.sexo} </p> 
             <p class="card-text"><strong>Escolaridade:</strong> ${funcionario.grauEscolaridade} </p> 
             <p class="card-text"><strong>Endereço:</strong> ${funcionario.endereco} </p> 
