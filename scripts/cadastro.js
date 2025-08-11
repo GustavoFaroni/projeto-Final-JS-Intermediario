@@ -8,7 +8,6 @@ form.addEventListener('submit', (event) => {
     event.preventDefault();
 
     const nome = document.getElementById('nome').value;
-    const sobrenome = document.getElementById('sobrenome').value;
     const dtNascimento = document.getElementById('dtNascimento').value;
     const sexo = document.getElementById('sexo').value;
     const escolaridade = document.getElementById('escolaridade').value;
@@ -22,7 +21,7 @@ form.addEventListener('submit', (event) => {
     // no futuro acho q vai ser a solução sem usar required 
 
     const novoFuncionario = {
-        nome: `${nome} ${sobrenome}`,
+        nome: nome,
         dtNascimento: dtNascimento,
         sexo: sexo,
         grauEscolaridade: escolaridade,

@@ -3,6 +3,7 @@ import { formatarData } from './formatarData.js';
 
 const container = document.getElementById('lista-funcionarios');
 
+
 alunos.forEach((funcionario, index) => {
     const card = document.createElement('div');
     card.className = 'col-md-4 mb-4';

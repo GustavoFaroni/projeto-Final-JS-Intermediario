@@ -8,7 +8,6 @@ const nomeFuncionarioEditando = document.getElementById('nome-funcionario-editan
 // --- Pega todos os inputs do formulário para facilitar o preenchimento ---
 const nomeInput = document.getElementById('nome');
 const sobrenomeInput = document.getElementById('sobrenome');
-// ... (selecione todos os outros inputs do seu formulário aqui) ...
 
 
 // --- 1. FUNÇÃO PARA EXIBIR TODOS OS CARDS NA TELA ---
@@ -40,7 +39,6 @@ function preencherFormulario(funcionario) {
     // Preenche cada campo com os dados do funcionário
     nomeInput.value = funcionario.nome;
     sobrenomeInput.value = funcionario.sobrenome;
-    // ... (preencha todos os outros inputs aqui com os dados do 'funcionario') ...
 
     // Mostra o nome do funcionário que está sendo editado no título
     nomeFuncionarioEditando.textContent = `Editando: ${funcionario.nome} ${funcionario.sobrenome}`;

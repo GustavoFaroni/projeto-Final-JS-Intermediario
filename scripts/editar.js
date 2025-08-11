@@ -1,77 +1,59 @@
-import {alunos} from './listaAlunos.js'; 
+import { alunos } from './listaAlunos.js';
 
-const selectFuncionario = document.getElementById('alunos-select');
-const formEdicao = document.getElementById('form-edicao');
+const idDoUsuarioDisplay = document.getElementById('id-user');
+const form = document.getElementById('form-edicao');
 
 
 const nomeInput = document.getElementById('nome');
-const sobrenomeInput = document.getElementById('sobrenome');
-const dtNascimentoInput = document.getElementById('dtNascimento');
 const sexoInput = document.getElementById('sexo');
+const dtNascimentoInput = document.getElementById('dtNascimento');
 const escolaridadeInput = document.getElementById('escolaridade');
 const enderecoInput = document.getElementById('endereco');
-const fotoInput = document.getElementById('foto');
 const salarioInput = document.getElementById('salario');
 const passagemInput = document.getElementById('passagem');
+const fotoInput = document.getElementById('foto');
 
 
-
-alunos.forEach(func => {
-    const option = document.createElement('option');
-    option.value = func.id; 
-    option.textContent = func.nome; 
-    selectFuncionario.appendChild(option);
-});
+const urlString = window.document.location.search; // Pega a string completa
+idDoUsuarioDisplay.innerText += urlString.slice(1); // Mostra "id=f001" na tela
 
 
-function preencherFormulario(idFuncionario) {
-    
-    const func = funcionarios.find(f => f.id === idFuncionario);
-
-    if (!func) {
-        formEdicao.reset();
-        return;
-    }
-
-    nomeInput.value = func.nome;
-    sobrenomeInput.value = func.sobrenome;
-    dtNascimentoInput.value = func.dtNascimento;
-    sexoInput.value = func.sexo;
-    escolaridadeInput.value = func.grauEscolaridade;
-    enderecoInput.value = func.endereco;
-    fotoInput.value = func.foto;
-    salarioInput.value = func.salario;
-    passagemInput.value = func.passagemDiaria;
+const stringSemInterrogacao = urlString.slice(1); 
 
 
-    const radioVT = document.querySelector(`input[name="opcaoVT"][value="${func.opcaoVT}"]`);
+// Divide a string no caractere "=" e pega a segunda parte, que é o valor do ID
+const idDoFuncionario =parseInt(stringSemInterrogacao.split('?')); 
+
+
+// Usa a variável com o ID limpo para buscar o usuário
+const funcionarioParaEditar = alunos.find(func => func.id === idDoFuncionario);
+
+
+if (funcionarioParaEditar) {
+    // Preenche cada campo do formulário com os dados do funcionário encontrado
+    nomeInput.value = funcionarioParaEditar.nome;
+    sexoInput.value = funcionarioParaEditar.sexo;
+    dtNascimentoInput.value = funcionarioParaEditar.dtNascimento;
+    salarioInput.value = funcionarioParaEditar.salario;
+    escolaridadeInput.value = funcionarioParaEditar.grauEscolaridade;
+    enderecoInput.value = funcionarioParaEditar.endereco;
+    passagemInput.value = funcionarioParaEditar.passagemDiaria;
+    fotoInput.value = funcionarioParaEditar.foto;
+
+
+    const radioVT = document.querySelector(`input[name="opcaoVT"][value="${funcionarioParaEditar.opcaoVT}"]`);
     if (radioVT) {
         radioVT.checked = true;
     }
+} else {
+    alert('Funcionário com o ID especificado não foi encontrado.');
+    form.style.display = 'none'; // Esconde o formulário se o ID for inválido
+    idDoUsuarioDisplay.innerText = `ID "${idDoFuncionario}" inválido!`;
 }
 
-
-selectFuncionario.addEventListener('change', (event) => {
-    const idSelecionado = event.target.value;
-    preencherFormulario(idSelecionado);
-});
-
-
-formEdicao.addEventListener('submit', (event) => {
+// --- LÓGICA DE SUBMIT DO FORMULÁRIOS ---
+form.addEventListener('submit', (event) => {
     event.preventDefault();
-
-    const idFuncionarioEditado = selectFuncionario.value;
-    if (!idFuncionarioEditado) {
-        alert('Por favor, selecione um funcionário da lista primeiro!');
-        return;
-    }
-
-    // A lógica de salvar as alterações, criar histórico, etc., iria aqui.
-    // Você usaria o 'idFuncionarioEditado' para saber quem atualizar no array principal.
-    
-    alert(`As alterações para o funcionário com ID ${idFuncionarioEditado} seriam salvas aqui!`);
-    
-    // Limpa a seleção e o formulário
-    selectFuncionario.value = "";
-    formEdicao.reset();
+    alert(`Alterações para o funcionário de ID ${idDoFuncionario} seriam salvas agora.`);
+    window.location.href = 'index.html';
 });
