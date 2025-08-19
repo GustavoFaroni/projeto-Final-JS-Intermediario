@@ -132,3 +132,5 @@ export const alunos = [
         historico: [],
     }
 ];
+
+localStorage.setItem('arrayP', JSON.stringify(alunos));

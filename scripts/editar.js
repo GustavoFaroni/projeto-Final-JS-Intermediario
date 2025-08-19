@@ -1,7 +1,7 @@
-import { alunos } from './listaAlunos.js';
-
 const idDoUsuarioDisplay = document.getElementById('id-user');
 const form = document.getElementById('form-edicao');
+
+let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
 
 const nomeInput = document.getElementById('nome');
@@ -26,7 +26,7 @@ const idDoFuncionario =parseInt(stringSemInterrogacao.split('?'));
 
 
 // Usa a variável com o ID limpo para buscar o usuário
-const funcionarioParaEditar = alunos.find(func => func.id === idDoFuncionario);
+const funcionarioParaEditar = arrayP.find(func => func.id === idDoFuncionario);
 
 
 if (funcionarioParaEditar) {
@@ -54,6 +54,26 @@ if (funcionarioParaEditar) {
 // --- LÓGICA DE SUBMIT DO FORMULÁRIOS ---
 form.addEventListener('submit', (event) => {
     event.preventDefault();
-    alert(`Alterações para o funcionário de ID ${idDoFuncionario} seriam salvas agora.`);
-    window.location.href = 'index.html';
+
+    // Atualiza os dados do funcionário com os valores do formulário
+    funcionarioParaEditar.nome = nomeInput.value;
+    funcionarioParaEditar.sexo = sexoInput.value;
+    funcionarioParaEditar.dtNascimento = dtNascimentoInput.value;
+    funcionarioParaEditar.salario = salarioInput.value;
+    funcionarioParaEditar.grauEscolaridade = escolaridadeInput.value;
+    funcionarioParaEditar.endereco = enderecoInput.value;
+    funcionarioParaEditar.passagemDiaria = passagemInput.value;
+    funcionarioParaEditar.foto = fotoInput.value;
+
+    const radioSelecionado = document.querySelector('input[name="opcaoVT"]:checked');
+    if (radioSelecionado) {
+        funcionarioParaEditar.opcaoVT = radioSelecionado.value;
+    }
+
+    // Atualiza o array no localStorage
+    localStorage.setItem('arrayP', JSON.stringify(arrayP));
+
+    // Redireciona ou mostra uma mensagem de sucesso
+    alert('Funcionário atualizado com sucesso!');
+    window.location.href = 'editar.html';
 });

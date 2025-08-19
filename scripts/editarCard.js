@@ -1,10 +1,9 @@
-import {alunos} from './listaAlunos.js'
 import { formatarData } from './formatarData.js';
 
 const container = document.getElementById('lista-funcionarios');
+let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
-
-alunos.forEach((funcionario, index) => {
+arrayP.forEach((funcionario, index) => {
     const card = document.createElement('div');
     card.className = 'col-md-4 mb-4';
     card.innerHTML= `
