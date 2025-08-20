@@ -4,6 +4,12 @@ import { calcularDescontoVT } from './calculovt.js';
 import { formatarMoeda } from './formatarMoeda.js';
 import { calculoFGTS } from './fgts.js';
 
+
+if(localStorage.getItem('arrayP')  == ''){
+    localStorage.setItem('arrayP', JSON.stringify(alunos));
+}
+
+
 const selectElement = document.getElementById("alunos-select");
 const containerResultados = document.getElementById('resultados-container');
 let arrayP = JSON.parse(localStorage.getItem('arrayP'));

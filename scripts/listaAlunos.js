@@ -132,7 +132,3 @@ export const alunos = [
         historico: [],
     }
 ];
-
-if(localStorage.getItem('arrayP')  == ''){
-    localStorage.setItem('arrayP', JSON.stringify(alunos));
-}
