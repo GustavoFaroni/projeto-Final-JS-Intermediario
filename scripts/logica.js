@@ -8,15 +8,9 @@ import { calculoFGTS } from './fgts.js';
 const selectElement = document.getElementById("alunos-select");
 const containerResultados = document.getElementById('resultados-container');
 let arrayP = JSON.parse(localStorage.getItem('arrayP'));
-var x;
 
-if(localStorage.getItem('arrayP')  == ''){
-    x = alunos;
-}else{
-    x = arrayP;
-}
 
-x.forEach((aluno) => {
+arrayP.forEach((aluno) => {
 
   const option = document.createElement("option");
   option.value = aluno.nome;

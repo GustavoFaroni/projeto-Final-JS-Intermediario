@@ -133,6 +133,6 @@ export const alunos = [
     }
 ];
 
-if(localStorage.getItem('arrayP')  == ''){
+if (localStorage.getItem('arrayP') === null) {
     localStorage.setItem('arrayP', JSON.stringify(alunos));
 }
