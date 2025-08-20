@@ -5,17 +5,17 @@ import { formatarMoeda } from './formatarMoeda.js';
 import { calculoFGTS } from './fgts.js';
 
 
-if(localStorage.getItem('arrayP')  == ''){
-    localStorage.setItem('arrayP', JSON.stringify(alunos));
-}
-
-
 const selectElement = document.getElementById("alunos-select");
 const containerResultados = document.getElementById('resultados-container');
 let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
+if(localStorage.getItem('arrayP')  == ''){
+    x = alunos;
+}else{
+    x = arrayP;
+}
 
-arrayP.forEach((aluno) => {
+x.forEach((aluno) => {
 
   const option = document.createElement("option");
   option.value = aluno.nome;
