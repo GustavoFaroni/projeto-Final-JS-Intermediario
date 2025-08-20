@@ -1,7 +1,7 @@
 import {alunos} from './listaAlunos.js';
 
 const form = document.getElementById('form-cadastro');
-const resultadoDiv = document.getElementById('resultado-cadastro');
+let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
 form.addEventListener('submit', (event) => {
     // event.preventDefault() ele impede que a página recarregue ao enviar o formulário.
@@ -33,8 +33,6 @@ form.addEventListener('submit', (event) => {
         opcaoVT: opcaoVT === 'true' 
     };
 
-    alunos.push(novoFuncionario);
-    console.log(alunos);
-
+    arrayP.push(novoFuncionario);
 
 });

@@ -5,11 +5,11 @@ import { formatarMoeda } from './formatarMoeda.js';
 import { calculoFGTS } from './fgts.js';
 
 const selectElement = document.getElementById("alunos-select");
-const inputBusca = document.getElementById('busca-input');
 const containerResultados = document.getElementById('resultados-container');
+let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
 
-alunos.forEach((aluno) => {
+arrayP.forEach((aluno) => {
 
   const option = document.createElement("option");
   option.value = aluno.nome;

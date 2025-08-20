@@ -3,6 +3,7 @@ import {alunos} from './listaAlunos.js';
 
 const inputBusca = document.getElementById('busca-input');
 const containerResultados = document.getElementById('resultados-container');
+let arrayP = JSON.parse(localStorage.getItem('arrayP'));
 
 //esse que é o "truque" da pesquisa dinamica botar o evento no 
 // input pra que ele faça uma busca ja na letra
@@ -16,7 +17,7 @@ const containerResultados = document.getElementById('resultados-container');
     }
 
     //mantém apenas os alunos com o nome na  que retornem "true" para o include
-    const resultadosFiltrados = alunos.filter(aluno => {
+    const resultadosFiltrados = arrayP.filter(aluno => {
         return aluno.nome.toLowerCase().includes(termoBusca);
     });
 
