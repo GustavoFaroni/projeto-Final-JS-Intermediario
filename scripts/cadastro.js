@@ -1,3 +1,4 @@
+import { postar } from './api.js';
 import {alunos} from './listaAlunos.js';
 
 const form = document.getElementById('form-cadastro');
@@ -20,7 +21,7 @@ form.addEventListener('submit', (event) => {
     // propriedade .value. Se não (se for null ou undefined), não faça nada e apenas retorne undefined sem quebrar o código."
     // no futuro acho q vai ser a solução sem usar required 
 
-    const novoFuncionario = {
+     const novoFuncionario = {
         nome: nome,
         dtNascimento: dtNascimento,
         sexo: sexo,
@@ -33,7 +34,7 @@ form.addEventListener('submit', (event) => {
         opcaoVT: opcaoVT === 'true' 
     };
 
-    alunos.push(novoFuncionario);
+    postar(novoFuncionario);
     console.log(alunos);
 
 
