@@ -1,23 +1,36 @@
-import {alunos} from './listaAlunos.js';
+import {getFuncionarios} from './listaAlunos.js';
 import {formatarData} from './formatarData.js';
 import { calcularDescontoVT } from './calculovt.js';
 import { formatarMoeda } from './formatarMoeda.js';
 import { calculoFGTS } from './fgts.js';
 
-
+console.log(getFuncionarios())
 const selectElement = document.getElementById("alunos-select");
 const containerResultados = document.getElementById('resultados-container');
-let arrayP = JSON.parse(localStorage.getItem('arrayP'));
+let todosOsFuncionarios = []; 
 
+// Função principal assíncrona para carregar e configurar tudo
+export async function inicializar() {
+    todosOsFuncionarios = await getFuncionarios(); // Espera os dados chegarem
+    console.log("oi")
 
-arrayP.forEach((aluno) => {
+    // Verifica se os dados foram carregados antes de continuar
+    if (todosOsFuncionarios.length === 0) {
+        containerResultados.innerHTML = '<p class="text-center text-danger">Não foi possível carregar os dados dos funcionários.</p>';
+        return;
+    }
 
-  const option = document.createElement("option");
-  option.value = aluno.nome;
-  option.textContent = `${aluno.nome} `;
-  selectElement.appendChild(option);
-});
+    // Popula o <select> com os nomes
+    todosOsFuncionarios.forEach((funcionario) => {
+        const option = document.createElement("option");
+        option.value = funcionario.nome;
+        option.textContent = `${funcionario.nome}`;
+        selectElement.appendChild(option);
+    });
 
+    // Exibe todos os funcionários inicialmente
+    exibirResultados(todosOsFuncionarios);
+}
 
 export function exibirResultados(resultados) {
     // limpa tudo
@@ -30,9 +43,7 @@ export function exibirResultados(resultados) {
 
    
     resultados.forEach(alunos => {
-        //bota a data bonitinha
-        const dataNascFormatada = formatarData(alunos.dtNascimento);
-       
+
         // Pega os detalhes do cálculo de VT
         const calculoVT = calcularDescontoVT(alunos);
         
@@ -93,4 +104,5 @@ export function exibirResultados(resultados) {
         //adcionar somando no HTML
         containerResultados.innerHTML += cardAlunoHTML;
     });
+
 }

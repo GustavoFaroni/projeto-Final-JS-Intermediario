@@ -1,138 +1,148 @@
+let listaFuncionarios = []
+function carregarListaFuncionarios() {
+    fetch('https://node-vercel-app-rho.vercel.app/api/funcionarios', {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(resp => resp.json())
+        .then(dados => {
+            listaFuncionarios = dados;
+            carrregarDados(listaFuncionarios)
+        })
+        .catch(err => console.error("Erro na requisição:", err));
+}
 
+const containerResultados = document.getElementById('resultados-container');
 
-export const alunos = [
-    {
-        id: 1,
-        nome: "Ana Clara Oliveira",
-        sexo: "Feminino",
-        dtNascimento: "2010-05-15",
-        grauEscolaridade: "Ensino Superior Completo",
-        endereco: "Rua das Flores, 123, Bloco A, Apto 101",
-        foto: "img/ana clara.png",
-        salario: 3500.00,
-        passagemDiaria: 8.60,
-        opcaoVT: true,
-        historico: [],
-    },
-    {
-        id: 2,
-        nome: "Lucas Martins Souza",
-        sexo: "Masculino",
-        dtNascimento: "2012-09-22",
-        grauEscolaridade: "Ensino Médio Completo",
-        endereco: "Avenida Principal, 45, Casa 2",
-        foto: "img/lucas martins.png",
-        salario: 3500.00,
-        passagemDiaria: 17.10,
-        opcaoVT: true,
-        historico: [],
-    },
-    {
-        id: 3,
-        nome: "Beatriz Costa Lima",
-        sexo: "Feminino",
-        dtNascimento: "2008-02-10",
-        grauEscolaridade: "Ensino Superior Completo",
-        endereco: "Travessa dos Coqueiros, 88",
-        foto: "img/beatriz costa.png",
-        salario: 3300.00,
-        passagemDiaria: 17.10,
-        opcaoVT: false,
-        historico: [],
-    },
-    {
-        id: 4,
-        nome: "Pedro Almeida Santos",
-        sexo: "Masculino",
-        dtNascimento: "2009-11-30",
-        grauEscolaridade: "Ensino Médio Completo",
-        endereco: "Rua da Passagem, 765, Apto 302",
-        foto: "img/pedro almeida.png",
-        salario: 3500.00,
-        passagemDiaria: 8.60,
-        opcaoVT: false,
-        historico: [],
-    },
-    {
-        id: 5,
-        nome: "Júlia Ferreira Gomes",
-        sexo: "Feminino",
-        dtNascimento: "2014-07-18",
-        grauEscolaridade: "Ensino Superior Completo",
-        endereco: "Alameda dos Pássaros, 321",
-        foto: "img/julia ferreira.png",
-        salario: 4100.00,
-        passagemDiaria: 8.60,
-        opcaoVT: true,
-        historico: [],
-    },
-    {
-        id: 6,
-        nome: "Guilherme Pereira Rodrigues",
-        sexo: "Masculino",
-        dtNascimento: "2007-08-01",
-        grauEscolaridade: "Ensino Superior Cursando",
-        endereco: "Rua do Sol, 50, Fundos",
-        foto: "img/guilherme pereira.png",
-        salario: 1700.00,
-        passagemDiaria: 17.60,
-        opcaoVT: true,
-        historico: [],
-    },
-    {
-        id: 7,
-        nome: "Sofia Ribeiro Carvalho",
-        sexo: "Feminino",
-        dtNascimento: "2011-03-25",
-        grauEscolaridade: "Ensino Médio Completo",
-        endereco: "Praça da Bandeira, 15, Apto 504",
-        foto: "img/sofia ribeiro.png",
-        salario: 3500.00,
-        passagemDiaria: 17.20,
-        opcaoVT: false,
-        historico: [],
-    },
-    {
-        id: 8,
-        nome: "Matheus Gonçalves Dias",
-        sexo: "Masculino",
-        dtNascimento: "2013-12-05",
-        grauEscolaridade: "Ensino Superior Cursando",
-        endereco: "Rua 25 de Março, 999",
-        foto: "img/matheus goncalves.png",
-        salario: 1500.00,
-        passagemDiaria: 8.60,
-        opcaoVT: false,
-        historico: [],
-    },
-    {
-        id: 9,
-        nome: "Isabela Mendes Barbosa",
-        sexo: "Feminino",
-        dtNascimento: "2008-06-12",
-        grauEscolaridade: "Ensino Superior Completo",
-        endereco: "Avenida das Américas, 1200, Bloco C, Apto 201",
-        foto: "img/isabela mendes.png",
-        salario: 4300.00,
-        passagemDiaria: 8.60,
-        opcaoVT: false,
-        historico: [],
-    },
-    {
-        id: 10,
-        nome: "Rafael Castro e Silva",
-        sexo: "Masculino",
-        dtNascimento: "2009-01-07",
-        grauEscolaridade: "Ensino Médio Completo",
-        endereco: "Rua da Matriz, 22, Casa",
-        foto: "img/rafael-castro.png",
-        salario: 1860.00,
-        passagemDiaria: 17.20,
-        opcaoVT: true,
-        historico: [],
+function carrregarDados(resultados) {
+    
+    containerResultados.innerHTML = '';
+
+    if (resultados.length === 0) {
+        containerResultados.innerHTML = '<p class="text-center text-muted">Nenhum aluno encontrado.</p>';
+        return;
     }
-];
 
-if (localStorage.getItem('arrayP') === null) {
-    localStorage.setItem('arrayP', JSON.stringify(alunos));
+   
+    resultados.forEach(alunos => {
+        
+        // Pega os detalhes do cálculo de VT
+        const calculoVT = calcularDescontoVT(alunos.funcionario);
+        
+        // Calcula o salário
+        const salarioLiquido = alunos.funcionario.salario - calculoVT.desconto;
+
+        // Formata todos os valores como moeda
+        const salarioBrutoFmt = formatarMoeda(alunos.funcionario.salario);
+        const descontoVTFmt = formatarMoeda(calculoVT.desconto);
+        const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
+        const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
+        const fgts = formatarMoeda(calculoFGTS(alunos.funcionario));
+
+
+        const badgeVT = calculoVT.optou
+            ? '<span class="badge bg-success ms-2">Optante VT</span>'
+            : '<span class="badge bg-secondary ms-2">Não Optante</span>';
+
+               const cardAlunoHTML = `
+            <div class="card mb-3 shadow-sm">
+                <div class="card-body">
+                    <div class="d-flex align-items-center mb-3">
+                        <img src="${alunos.funcionario.foto}" alt="Foto de ${alunos.funcionario.nome}" class="card-img-aluno me-3">
+                        <div>
+                            <h5 class="card-title mb-0">
+                                ${alunos.funcionario.nome}${badgeVT}
+                            </h5>
+                            <p class="card-text"><small class="text-muted">${alunos.funcionario.grauEscolaridade}</small></p>
+                        </div>
+                    </div>
+
+                    <h6 class="card-subtitle mb-2 text-muted">Detalhes Financeiros:</h6>
+                    <ul class="list-group list-group-flush">
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Salário Bruto
+                            <span>${salarioBrutoFmt}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            Desconto VT
+                            <span class="text-danger">-${descontoVTFmt}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            <strong>Salário Líquido (aprox.)</strong>
+                            <strong>${salarioLiquidoFmt}</strong>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            valor VT a pagar pela empresa
+                            <span class="text-danger">-${vtEmpresa}</span>
+                        </li>
+                        <li class="list-group-item d-flex justify-content-between align-items-center">
+                            FGTS
+                            <span class="text-danger">${fgts}</span>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        `;
+        //adcionar somando no HTML
+        containerResultados.innerHTML += cardAlunoHTML;
+    });
+
+}
+ 
+
+function calcularDescontoVT(alunos, diasUteis = 22) {
+  // Verifica se o funcionário optou por receber o Vale-Transporte.
+  if (!alunos.opcaoVT) {
+    return {
+      optou: false,
+      desconto: 0,
+      custoTotal: 0,
+      limite6porcento: 0,
+      empresaVT: 0,
+    };
+  }
+
+  // Calcula o custo total do transporte para o mês.
+  const custoTotalTransporte = alunos.passagemDiaria * diasUteis;
+
+  // Calcula o limite de desconto, que é 6% do salário base.
+  const limiteDesconto = alunos.salario * 0.06;
+
+  // O desconto real a ser aplicado é o MENOR valor entre o custo total e o limite de 6%.
+  const descontoReal = Math.min(custoTotalTransporte, limiteDesconto);
+
+  const vtAdicional = custoTotalTransporte - limiteDesconto;
+
+  if (custoTotalTransporte <= limiteDesconto) {
+    // Retorna um objeto com todos os detalhes
+    return {
+      optou: true,
+      // toFixed(2) para formatar o número com 2 casas decimais.
+      desconto: parseFloat(descontoReal.toFixed(2)),
+      custoTotal: parseFloat(custoTotalTransporte.toFixed(2)),
+      limite6porcento: parseFloat(limiteDesconto.toFixed(2)),
+      empresaVT: 0 ,
+    };
+  } else {
+    return {
+      optou: true,
+      desconto: parseFloat(descontoReal.toFixed(2)),
+      custoTotal: parseFloat(custoTotalTransporte.toFixed(2)),
+      limite6porcento: parseFloat(limiteDesconto.toFixed(2)),
+      empresaVT: parseFloat(vtAdicional.toFixed(2)),
+    };
+  }
+}
+
+//formatar números como moeda (R$)  mesma ideia da data tem biblioteca pra isso
+function formatarMoeda(valor) {
+    return new Intl.NumberFormat('pt-BR', {
+        style: 'currency',
+        currency: 'BRL'
+    }).format(valor);
+}
+
+function calculoFGTS(alunos){
+    const fgts = alunos.salario * 0.08;
+    return fgts;
 }
