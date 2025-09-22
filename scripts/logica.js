@@ -1,5 +1,3 @@
-import {getFuncionarios} from './listaAlunos.js';
-import {formatarData} from './formatarData.js';
 import { calcularDescontoVT } from './calculovt.js';
 import { formatarMoeda } from './formatarMoeda.js';
 import { calculoFGTS } from './fgts.js';

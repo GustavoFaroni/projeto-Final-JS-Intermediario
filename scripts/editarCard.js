@@ -1,27 +1,48 @@
-import { formatarData } from './formatarData.js';
+let listaFuncionarios = []
 
-const container = document.getElementById('lista-funcionarios');
-let arrayP = JSON.parse(localStorage.getItem('arrayP'));
+function carregarListaFuncionarios() {
+    fetch('https://node-vercel-app-rho.vercel.app/api/funcionarios', {
+        method: "GET",
+        headers: { "Content-Type": "application/json" },
+    })
+        .then(resp => resp.json())
+        .then(dados => {
+            listaFuncionarios = dados;
+            carrregarDados(listaFuncionarios)
+        })
+        .catch(err => console.error("Erro na requisição:", err));
+}
 
-arrayP.forEach((funcionario, index) => {
-    const card = document.createElement('div');
-    card.className = 'col-md-4 mb-4';
-    card.innerHTML= `
-    <div class="card h-100 shadow" id="${index + 1}">
-        <img src="${funcionario.foto}" class="card-img-top" alt="${funcionario.nome}">
-        <div class="card-body link-card">
-            <h5 class="card-title">${funcionario.nome}</h5>
-            <p class="card-text"><strong>Data de nascimento:</strong> ${formatarData(funcionario.dtNascimento)}</p>
-            <p class="card-text"><strong>Sexo:</strong> ${funcionario.sexo} </p> 
-            <p class="card-text"><strong>Escolaridade:</strong> ${funcionario.grauEscolaridade} </p> 
-            <p class="card-text"><strong>Endereço:</strong> ${funcionario.endereco} </p> 
-        </div>
-    </div>    
-    `;
-    container.appendChild(card);
-});
+const containerResultados = document.getElementById('lista-funcionarios');
 
-container.addEventListener('click', (event) => {
+function carrregarDados(resultados) {
+    console.log(listaFuncionarios)
+    containerResultados.innerHTML = '';
+
+    if (resultados.length === 0) {
+        containerResultados.innerHTML = '<p class="text-center text-muted">Nenhum aluno encontrado.</p>';
+        return;
+    }
+    resultados.forEach((funcionario, index) => {
+        const card = document.createElement('div');
+        card.className = 'col-md-4 mb-4';
+        card.innerHTML= `
+        <div class="card h-100 shadow" id="${funcionario._id}">
+            <img src="${funcionario.funcionario.foto}" class="card-img-top" alt="${funcionario.funcionario.nome}">
+            <div class="card-body link-card">
+                <h5 class="card-title">${funcionario.funcionario.nome}</h5>
+                <p class="card-text"><strong>Data de nascimento:</strong> ${funcionario.funcionario.dtNascimento}</p>
+                <p class="card-text"><strong>Sexo:</strong> ${funcionario.funcionario.sexo} </p> 
+                <p class="card-text"><strong>Escolaridade:</strong> ${funcionario.funcionario.grauEscolaridade} </p> 
+                <p class="card-text"><strong>Endereço:</strong> ${funcionario.funcionario.endereco} </p> 
+            </div>
+        </div>    
+        `;
+        containerResultados.appendChild(card);
+    });
+}
+
+containerResultados.addEventListener('click', (event) => {
     const card = event.target.closest('.card');
     window.location.href = `editarCampo.html?${card.id}`    
 });

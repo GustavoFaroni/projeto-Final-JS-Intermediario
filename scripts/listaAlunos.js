@@ -1,4 +1,5 @@
 let listaFuncionarios = []
+
 function carregarListaFuncionarios() {
     fetch('https://node-vercel-app-rho.vercel.app/api/funcionarios', {
         method: "GET",
