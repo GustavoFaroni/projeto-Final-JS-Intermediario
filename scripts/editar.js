@@ -35,8 +35,8 @@ function carregarDetalhesFuncionario() {
     })
     .then(dados => {
         // Guarda os dados recebidos e chama a função para preencher o formulário
-        funcionarioParaEditar = dados.funcionario; 
-        preencherDados(dados.funcionario);
+        funcionarioParaEditar = dados; 
+        preencherDados(dados);
     })
     .catch(err => {
         // Captura qualquer erro, seja de rede ou da resposta da API
@@ -49,6 +49,7 @@ function carregarDetalhesFuncionario() {
 // Função responsável por colocar os dados nos campos do formulário
 function preencherDados(funcionario) {
     document.getElementById('nome').value = funcionario.nome;
+    document.getElementById('sobrenome').value = funcionario.sobrenome;
     document.getElementById('sexo').value = funcionario.sexo;
     // A API retorna a data completa, precisamos formatar para 'yyyy-mm-dd'
     document.getElementById('dtNascimento').value = funcionario.dtNascimento.split('T')[0]; 

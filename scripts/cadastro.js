@@ -1,41 +1,55 @@
-import { postar } from './api.js';
-import {alunos} from './listaAlunos.js';
+function cadastrarFuncionarios() {
+    let nome = document.getElementById('nome').value
+    let sobrenome = document.getElementById('sobrenome').value
+    let dtNascimento = document.getElementById('dtNascimento').value
+    let sexo = document.getElementById('sexo').value
+    let grauEscolaridade = document.getElementById('escolaridade').value
+    let endereco = document.getElementById('endereco').value
 
-const form = document.getElementById('form-cadastro');
-const resultadoDiv = document.getElementById('resultado-cadastro');
-
-form.addEventListener('submit', (event) => {
-    // event.preventDefault() ele impede que a página recarregue ao enviar o formulário.
-    event.preventDefault();
-
-    const nome = document.getElementById('nome').value;
-    const dtNascimento = document.getElementById('dtNascimento').value;
-    const sexo = document.getElementById('sexo').value;
-    const escolaridade = document.getElementById('escolaridade').value;
-    const endereco = document.getElementById('endereco').value;
-    const foto = document.getElementById('foto').value;
-    const salario = document.getElementById('salario').value;
-    const passagem = document.getElementById('passagem').value;
-    const opcaoVT = document.querySelector('input[name="opcaoVT"]:checked').value;
-    //O ?. funciona como uma pergunta: "O elemento da esquerda existe? Se sim, pegue a 
-    // propriedade .value. Se não (se for null ou undefined), não faça nada e apenas retorne undefined sem quebrar o código."
-    // no futuro acho q vai ser a solução sem usar required 
-
-     const novoFuncionario = {
-        nome: nome,
-        dtNascimento: dtNascimento,
-        sexo: sexo,
-        grauEscolaridade: escolaridade,
-        endereco: endereco,
-        foto: foto,
-        salario: parseFloat(salario),
-        passagemDiaria: parseFloat(passagem),
-        //ao inves de comparar o retorno , faço uma comparaçao onde o true retorna true e a comparaçao com false retorna false
-        opcaoVT: opcaoVT === 'true' 
-    };
-
-    postar(novoFuncionario);
-    console.log(alunos);
+    const optouVTRadio = document.querySelector('input[name="opcaoVT"]:checked');
+    const optouVT = optouVTRadio ? optouVTRadio.value === 'true' : false;
 
 
-});
+    //isso aqui é VITAL sem a conversão nao ia 
+    const salarioStr = document.getElementById('salario').value;
+    const passagemStr = document.getElementById('passagem').value;
+    const salarioAtual = parseFloat(salarioStr.replace(',', '.'));
+    const valorPassagem = parseFloat(passagemStr.replace(',', '.'));
+
+
+    let foto = document.getElementById('foto').value
+
+    fetch('https://node-vercel-app-rho.vercel.app/api/funcionarios', {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+            nome,
+            sobrenome,
+            sexo,
+            dtNascimento,
+            grauEscolaridade,
+            endereco,
+            foto,
+            salarioAtual,
+            valorPassagem,
+            optouVT,
+            historicoCargosESalarios: [
+                {
+                    cargo: "Desenvolvedora Senior",
+                    salario: 5000,
+                    dataInicio: "2021-01-01",
+                    dataFim: null
+                }
+
+            ]
+
+        }
+        )
+    })
+        .then(resp => resp.json())
+        .then(dados => console.log(dados))
+        .catch(err => console.error("Erro na requisição:", err));
+    console.log(valorPassagem)
+    console.log(salarioAtual)
+}
+window.cadastrarFuncionarios = cadastrarFuncionarios;
