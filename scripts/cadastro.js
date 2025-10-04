@@ -49,7 +49,5 @@ function cadastrarFuncionarios() {
         .then(resp => resp.json())
         .then(dados => console.log(dados))
         .catch(err => console.error("Erro na requisição:", err));
-    console.log(valorPassagem)
-    console.log(salarioAtual)
 }
 window.cadastrarFuncionarios = cadastrarFuncionarios;
