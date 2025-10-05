@@ -25,20 +25,23 @@ function carrregarDados(resultados) {
     }
 
    
-    resultados.forEach(alunos => {
+    resultados.forEach(funcionario => {
         
         // Pega os detalhes do cálculo de VT
-        const calculoVT = calcularDescontoVT(alunos.funcionario);
+        const calculoVT = calcularDescontoVT(funcionario);
         
         // Calcula o salário
-        const salarioLiquido = alunos.funcionario.salario - calculoVT.desconto;
+        const salario = parseFloat(funcionario.salarioAtual);
+        const salarioLiquido = salario - calculoVT.desconto;
+        const fgts = formatarMoeda(salario * 0.08);
+        
 
         // Formata todos os valores como moeda
-        const salarioBrutoFmt = formatarMoeda(alunos.funcionario.salario);
+        const salarioBrutoFmt = formatarMoeda(parseFloat(funcionario.salarioAtual));
         const descontoVTFmt = formatarMoeda(calculoVT.desconto);
         const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
         const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
-        const fgts = formatarMoeda(calculoFGTS(alunos.funcionario));
+        
 
 
         const badgeVT = calculoVT.optou
@@ -49,12 +52,12 @@ function carrregarDados(resultados) {
             <div class="card mb-3 shadow-sm">
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
-                        <img src="${alunos.funcionario.foto}" alt="Foto de ${alunos.funcionario.nome}" class="card-img-aluno me-3">
+                        <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
                         <div>
                             <h5 class="card-title mb-0">
-                                ${alunos.funcionario.nome}${badgeVT}
+                                ${funcionario.nome} ${funcionario.sobrenome}${badgeVT}
                             </h5>
-                            <p class="card-text"><small class="text-muted">${alunos.funcionario.grauEscolaridade}</small></p>
+                            <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                         </div>
                     </div>
 
@@ -93,7 +96,7 @@ function carrregarDados(resultados) {
 
 function calcularDescontoVT(alunos, diasUteis = 22) {
   // Verifica se o funcionário optou por receber o Vale-Transporte.
-  if (!alunos.opcaoVT) {
+  if (!alunos.optouVT) {
     return {
       optou: false,
       desconto: 0,
@@ -141,9 +144,4 @@ function formatarMoeda(valor) {
         style: 'currency',
         currency: 'BRL'
     }).format(valor);
-}
-
-function calculoFGTS(alunos){
-    const fgts = alunos.salario * 0.08;
-    return fgts;
 }

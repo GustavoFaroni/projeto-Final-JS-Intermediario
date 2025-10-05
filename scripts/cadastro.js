@@ -10,7 +10,7 @@ function cadastrarFuncionarios() {
     const optouVT = optouVTRadio ? optouVTRadio.value === 'true' : false;
 
 
-    //isso aqui é VITAL sem a conversão nao ia 
+    //isso aqui é VITAL sem a conversão nao vai
     const salarioStr = document.getElementById('salario').value;
     const passagemStr = document.getElementById('passagem').value;
     const salarioAtual = parseFloat(salarioStr.replace(',', '.'));
