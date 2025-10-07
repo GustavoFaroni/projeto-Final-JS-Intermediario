@@ -26,18 +26,26 @@ function carrregarDados(resultados) {
 
    
     resultados.forEach(funcionario => {
+    resultados.forEach(funcionario => {
         
         // Pega os detalhes do cálculo de VT
         const calculoVT = calcularDescontoVT(funcionario);
+        const calculoVT = calcularDescontoVT(funcionario);
         
         // Calcula o salário
+        const salario = parseFloat(funcionario.salarioAtual);
+        const salarioLiquido = salario - calculoVT.desconto;
+        const fgts = formatarMoeda(salario * 0.08);
+        
         const salarioLiquido = funcionario.salario - calculoVT.desconto;
 
         // Formata todos os valores como moeda
+        const salarioBrutoFmt = formatarMoeda(parseFloat(funcionario.salarioAtual));
         const salarioBrutoFmt = formatarMoeda(funcionario.salario);
         const descontoVTFmt = formatarMoeda(calculoVT.desconto);
         const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
         const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
+        
         const fgts = formatarMoeda(calculoFGTS(funcionario));
 
 
@@ -50,10 +58,13 @@ function carrregarDados(resultados) {
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
+                        <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
                         <div>
                             <h5 class="card-title mb-0">
+                                ${funcionario.nome} ${funcionario.sobrenome}${badgeVT}
                                 ${funcionario.nome}${badgeVT}
                             </h5>
+                            <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                             <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                         </div>
                     </div>
@@ -93,7 +104,7 @@ function carrregarDados(resultados) {
 
 function calcularDescontoVT(funcionario, diasUteis = 22) {
   // Verifica se o funcionário optou por receber o Vale-Transporte.
-  if (!funcionario.opcaoVT) {
+  if (!funcionario.optouVT) {
     return {
       optou: false,
       desconto: 0,
