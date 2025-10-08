@@ -24,12 +24,9 @@ function carrregarDados(resultados) {
         return;
     }
 
-   
-    resultados.forEach(funcionario => {
     resultados.forEach(funcionario => {
         
         // Pega os detalhes do cálculo de VT
-        const calculoVT = calcularDescontoVT(funcionario);
         const calculoVT = calcularDescontoVT(funcionario);
         
         // Calcula o salário
@@ -37,16 +34,13 @@ function carrregarDados(resultados) {
         const salarioLiquido = salario - calculoVT.desconto;
         const fgts = formatarMoeda(salario * 0.08);
         
-        const salarioLiquido = funcionario.salario - calculoVT.desconto;
 
         // Formata todos os valores como moeda
         const salarioBrutoFmt = formatarMoeda(parseFloat(funcionario.salarioAtual));
-        const salarioBrutoFmt = formatarMoeda(funcionario.salario);
         const descontoVTFmt = formatarMoeda(calculoVT.desconto);
         const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
         const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
         
-        const fgts = formatarMoeda(calculoFGTS(funcionario));
 
 
         const badgeVT = calculoVT.optou
