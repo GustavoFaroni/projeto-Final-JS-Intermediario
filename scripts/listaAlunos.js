@@ -24,19 +24,20 @@ function carrregarDados(resultados) {
         return;
     }
 
+   
     resultados.forEach(funcionario => {
         
         // Pega os detalhes do cálculo de VT
         const calculoVT = calcularDescontoVT(funcionario);
         
         // Calcula o salário
-        const salario = parseFloat(funcionario.salarioAtual);
+        const salario = parseFloat(funcionario.salario);
         const salarioLiquido = salario - calculoVT.desconto;
         const fgts = formatarMoeda(salario * 0.08);
         
 
         // Formata todos os valores como moeda
-        const salarioBrutoFmt = formatarMoeda(parseFloat(funcionario.salarioAtual));
+        const salarioBrutoFmt = formatarMoeda(parseFloat(funcionario.salario));
         const descontoVTFmt = formatarMoeda(calculoVT.desconto);
         const salarioLiquidoFmt = formatarMoeda(salarioLiquido);
         const vtEmpresa = formatarMoeda(calculoVT.empresaVT);
@@ -52,8 +53,9 @@ function carrregarDados(resultados) {
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
+                        <div>
                             <h5 class="card-title mb-0">
-                                ${funcionario.nome} ${funcionario.sobrenome} ${badgeVT}
+                                ${funcionario.nome} ${funcionario.sobrenome}${badgeVT}
                             </h5>
                             <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                         </div>
@@ -92,9 +94,9 @@ function carrregarDados(resultados) {
 }
  
 
-function calcularDescontoVT(funcionario, diasUteis = 22) {
+function calcularDescontoVT(alunos, diasUteis = 22) {
   // Verifica se o funcionário optou por receber o Vale-Transporte.
-  if (!funcionario.optouVT) {
+  if (!alunos.optouVT) {
     return {
       optou: false,
       desconto: 0,
@@ -105,10 +107,10 @@ function calcularDescontoVT(funcionario, diasUteis = 22) {
   }
 
   // Calcula o custo total do transporte para o mês.
-  const custoTotalTransporte = funcionario.passagemDiaria * diasUteis;
+  const custoTotalTransporte = alunos.passagemDiaria * diasUteis;
 
   // Calcula o limite de desconto, que é 6% do salário base.
-  const limiteDesconto = funcionario.salario * 0.06;
+  const limiteDesconto = alunos.salario * 0.06;
 
   // O desconto real a ser aplicado é o MENOR valor entre o custo total e o limite de 6%.
   const descontoReal = Math.min(custoTotalTransporte, limiteDesconto);
@@ -142,9 +144,4 @@ function formatarMoeda(valor) {
         style: 'currency',
         currency: 'BRL'
     }).format(valor);
-}
-
-function calculoFGTS(funcionario){
-    const fgts = funcionario.salario * 0.08;
-    return fgts;
 }

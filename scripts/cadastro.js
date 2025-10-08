@@ -5,15 +5,20 @@ function cadastrarFuncionarios() {
     let sexo = document.getElementById('sexo').value
     let grauEscolaridade = document.getElementById('escolaridade').value
     let endereco = document.getElementById('endereco').value
+    let cargo = document.getElementById('cargo').value
 
     const optouVTRadio = document.querySelector('input[name="optouVT"]:checked');
     const optouVT = optouVTRadio ? optouVTRadio.value === 'true' : false;
+
+    const hoje = new Date();
+    const dataInicio = hoje.toISOString().split('T')[0];
+    let dataDemissao = null;
 
 
     //isso aqui é VITAL sem a conversão nao vai
     const salarioStr = document.getElementById('salario').value;
     const passagemStr = document.getElementById('passagemDiaria').value;
-    const salarioAtual = parseFloat(salarioStr.replace(',', '.'));
+    const salario = parseFloat(salarioStr.replace(',', '.'));
     const valorPassagem = parseFloat(passagemStr.replace(',', '.'));
 
 
@@ -27,6 +32,7 @@ function cadastrarFuncionarios() {
         "Sexo": sexo,
         "Escolaridade": grauEscolaridade,
         "Endereço": endereco,
+        "cargo": cargo,
         "Salário": salarioStr,
         "Valor da Passagem": passagemStr,
         "Foto": foto
@@ -36,7 +42,7 @@ function cadastrarFuncionarios() {
     for (const [nomeCampo, valorCampo] of Object.entries(camposParaValidar)) {
         if (!valorCampo || valorCampo.trim() === '') {
             alert(`O campo "${nomeCampo}" é obrigatório e não pode estar vazio.`);
-            return; // Interrompe a função aqui
+            return; 
         }
     }
 
@@ -56,7 +62,7 @@ function cadastrarFuncionarios() {
     
 
     //checagem dos num
-     if (isNaN(salarioAtual) || isNaN(valorPassagem)) {
+     if (isNaN(salario) || isNaN(valorPassagem)) {
         alert("Os campos 'Salário' e 'Valor da Passagem' devem ser números válidos.");
         return;
     }
@@ -64,7 +70,7 @@ function cadastrarFuncionarios() {
     // Verificação específica para o botão de rádio
     if (!optouVTRadio) {
         alert("Por favor, selecione uma opção para o Vale Transporte.");
-        return; // Interrompe a função aqui
+        return;
     }
 
     fetch('https://node-vercel-app-rho.vercel.app/api/funcionarios', {
@@ -78,19 +84,12 @@ function cadastrarFuncionarios() {
             grauEscolaridade,
             endereco,
             foto,
-            salarioAtual,
+            salario,
             valorPassagem,
+            cargo,
             optouVT,
-            historicoCargosESalarios: [
-                {
-                    cargo: "Desenvolvedora Senior",
-                    salario: 5000,
-                    dataInicio: "2021-01-01",
-                    dataFim: null
-                }
-
-            ]
-
+            dataInicio,
+            dataDemissao
         }
         )
     })

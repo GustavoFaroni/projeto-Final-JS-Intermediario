@@ -19,7 +19,7 @@ function carregarDetalhesFuncionario() {
         return; // Para a execução se não houver ID
     }
     
-    idDoUsuarioDisplay.innerText = `ID = ${idDoFuncionario}`;
+    idDoUsuarioDisplay.innerText = `ID =${idDoFuncionario}`;
 
     //Faz a requisição para a API usando o ID obtido
     fetch(`https://node-vercel-app-rho.vercel.app/api/funcionarios/${idDoFuncionario}`, {
@@ -55,7 +55,7 @@ function preencherDados(funcionario) {
     document.getElementById('dtNascimento').value = funcionario.dtNascimento.split('T')[0]; 
     document.getElementById('escolaridade').value = funcionario.grauEscolaridade;
     document.getElementById('endereco').value = funcionario.endereco;
-    document.getElementById('salario').value = funcionario.salarioAtual;
+    document.getElementById('salario').value = funcionario.salario;
     document.getElementById('passagem').value = funcionario.valorPassagem;
     document.getElementById('foto').value = funcionario.foto;
 
@@ -73,13 +73,15 @@ form.addEventListener('submit', (event) => {
 
     // Atualiza o objeto 'funcionarioParaEditar' com os novos valores do formulário
     funcionarioParaEditar.nome = document.getElementById('nome').value;
+    funcionarioParaEditar.sobrenome = document.getElementById('sobrenome').value;
     funcionarioParaEditar.sexo = document.getElementById('sexo').value;
     funcionarioParaEditar.dtNascimento = document.getElementById('dtNascimento').value;
-    funcionarioParaEditar.grauEscolaridade = document.getElementById('escolaridade').value;
+    funcionarioParaEditar.escolaridade = document.getElementById('escolaridade').value;
     funcionarioParaEditar.endereco = document.getElementById('endereco').value;
-    funcionarioParaEditar.salarioAtual = parseFloat(document.getElementById('salario').value);
+    funcionarioParaEditar.salario = parseFloat(document.getElementById('salario').value);
     funcionarioParaEditar.valorPassagem = parseFloat(document.getElementById('passagem').value);
     funcionarioParaEditar.foto = document.getElementById('foto').value;
+
     
     const radioSelecionado = document.querySelector('input[name="opcaoVT"]:checked');
     if (radioSelecionado) {
@@ -87,7 +89,68 @@ form.addEventListener('submit', (event) => {
         funcionarioParaEditar.optouVT = (radioSelecionado.value === 'true');
     }
 
-    console.log("Dados prontos para enviar:", funcionarioParaEditar);
-    alert('Funcionalidade de salvar ainda não implementada.');
+     const camposParaValidar = {
+        "Nome": funcionarioParaEditar.nome,
+        "Sobrenome": funcionarioParaEditar.sobrenome,
+        "Data de Nascimento": funcionarioParaEditar.dtNascimento,
+        "Sexo": funcionarioParaEditar.sexo,
+        "escolaridade": funcionarioParaEditar.escolaridade,
+        "Endereço": funcionarioParaEditar.endereco,
+        "Foto": funcionarioParaEditar.foto
+    };
 
+    // Loop que verifica cada campo de texto
+    for (const [nomeCampo, valorCampo] of Object.entries(camposParaValidar)) {
+        if (!valorCampo || valorCampo.trim() === '') {
+            alert(`O campo "${nomeCampo}" é obrigatório e não pode estar vazio.`);
+            return; 
+        }
+    }
+
+    
+    //checagem das letras
+    const regexSoLetras = /^[a-zA-Zà-úÀ-Ú\s]+$/;
+
+    if (!regexSoLetras.test(funcionarioParaEditar.nome)) {
+        alert("O campo 'Nome' deve conter apenas letras e espaços.");
+        return; 
+    }
+
+    if (!regexSoLetras.test(funcionarioParaEditar.sobrenome)) {
+        alert("O campo 'Sobrenome' deve conter apenas letras e espaços.");
+        return;
+    }
+    
+
+    //checagem dos num
+     if (isNaN(funcionarioParaEditar.salario) || isNaN(funcionarioParaEditar.valorPassagem)) {
+        alert("Os campos 'Salário' e 'Valor da Passagem' devem ser números válidos.");
+        return;
+    }
+
+    // Verificação específica para o botão de rádio
+    if (!funcionarioParaEditar.optouVT) {
+        alert("Por favor, selecione uma opção para o Vale Transporte.");
+        return;
+    }
+
+    const idDoFuncionario = window.location.search.slice(1);
+    
+        
+  fetch(`https://node-vercel-app-rho.vercel.app/api/funcionarios/${idDoFuncionario}`, {
+    method: "PUT",
+    headers: {
+      "Content-Type": "application/json"
+    },
+   body: JSON.stringify(funcionarioParaEditar)
+    })
+    .then(resp => {
+      if (!resp.ok) throw new Error("Erro ao editar funcionário");
+      return resp.json();
+    })
+    .then(dados => {
+      console.log("Funcionário atualizado:", dados);
+      
+    })
+    .catch(err => console.error("Erro na requisição:", err));
 });
