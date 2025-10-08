@@ -52,13 +52,9 @@ function carrregarDados(resultados) {
                 <div class="card-body">
                     <div class="d-flex align-items-center mb-3">
                         <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
-                        <img src="${funcionario.foto}" alt="Foto de ${funcionario.nome}" class="card-img-aluno me-3">
-                        <div>
                             <h5 class="card-title mb-0">
-                                ${funcionario.nome} ${funcionario.sobrenome}${badgeVT}
-                                ${funcionario.nome}${badgeVT}
+                                ${funcionario.nome} ${funcionario.sobrenome} ${badgeVT}
                             </h5>
-                            <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                             <p class="card-text"><small class="text-muted">${funcionario.grauEscolaridade}</small></p>
                         </div>
                     </div>

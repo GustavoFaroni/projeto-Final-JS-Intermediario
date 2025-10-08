@@ -40,6 +40,27 @@ function cadastrarFuncionarios() {
         }
     }
 
+    
+    //checagem das letras
+    const regexSoLetras = /^[a-zA-Zà-úÀ-Ú\s]+$/;
+    
+    if (!regexSoLetras.test(nome)) {
+        alert("O campo 'Nome' deve conter apenas letras e espaços.");
+        return; 
+    }
+
+    if (!regexSoLetras.test(sobrenome)) {
+        alert("O campo 'Sobrenome' deve conter apenas letras e espaços.");
+        return;
+    }
+    
+
+    //checagem dos num
+     if (isNaN(salarioAtual) || isNaN(valorPassagem)) {
+        alert("Os campos 'Salário' e 'Valor da Passagem' devem ser números válidos.");
+        return;
+    }
+
     // Verificação específica para o botão de rádio
     if (!optouVTRadio) {
         alert("Por favor, selecione uma opção para o Vale Transporte.");
