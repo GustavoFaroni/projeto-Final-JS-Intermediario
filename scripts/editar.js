@@ -55,9 +55,11 @@ function preencherDados(funcionario) {
     document.getElementById('dtNascimento').value = funcionario.dtNascimento.split('T')[0]; 
     document.getElementById('escolaridade').value = funcionario.grauEscolaridade;
     document.getElementById('endereco').value = funcionario.endereco;
+    document.getElementById('cargo').value = funcionario.cargo;
     document.getElementById('salario').value = funcionario.salario;
     document.getElementById('passagem').value = funcionario.valorPassagem;
     document.getElementById('foto').value = funcionario.foto;
+    document.getElementById('ft').src = funcionario.foto;
 
     const radioVT = document.querySelector(`input[name="opcaoVT"][value="${funcionario.optouVT}"]`);
     if (radioVT) {

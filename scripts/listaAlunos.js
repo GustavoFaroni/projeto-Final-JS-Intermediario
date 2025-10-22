@@ -107,7 +107,7 @@ function calcularDescontoVT(alunos, diasUteis = 22) {
   }
 
   // Calcula o custo total do transporte para o mês.
-  const custoTotalTransporte = alunos.passagemDiaria * diasUteis;
+  const custoTotalTransporte = alunos.valorPassagem * diasUteis;
 
   // Calcula o limite de desconto, que é 6% do salário base.
   const limiteDesconto = alunos.salario * 0.06;
@@ -145,3 +145,26 @@ function formatarMoeda(valor) {
         currency: 'BRL'
     }).format(valor);
 }
+
+const inputBusca = document.getElementById('busca-input');
+
+//esse que é o "truque" da pesquisa dinamica botar o evento no 
+// input pra que ele faça uma busca ja na letra
+ inputBusca.addEventListener('input', () => {
+    const termoBusca = inputBusca.value.trim().toLowerCase();
+    
+    //limpar a busca caso tenha retirado todas as letras
+    if (termoBusca === '') {
+        containerResultados.innerHTML = '';
+        carrregarDados(listaFuncionarios)
+        return;
+    }
+
+    //mantém apenas os alunos com o nome na  que retornem "true" para o include
+    const resultadosFiltrados = listaFuncionarios.filter(aluno => {
+        return aluno.nome.toLowerCase().includes(termoBusca);
+    });
+
+    // exibir os resultados na tela
+    carrregarDados(resultadosFiltrados);
+});
